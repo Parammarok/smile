@@ -3,17 +3,17 @@ package server
 //see github.com/jpillora/scraper for config specification
 //cloud-torrent uses "<id>-item" handlers
 var defaultSearchConfig = []byte(`{
-	"kat": {
+		"kat": {
 		"name": "Kickass Torrents",
-		"url": "https://kat.cr/usearch/{{query}}/{{page:1}}/?field=seeders&sorder=desc",
-		"list": "#mainSearchTable table tr[id]",
+		"url": "https://thepiratebay.se/search/{{query}}/{{page:0}}/7//",
+		"list": "#searchResult > tbody > tr",
 		"result": {
-			"name":".cellMainLink",
-			"path":[".cellMainLink", "@href"],
-			"magnet": ["a[title=Torrent\\ magnet\\ link]", "@href"],
-			"size": "td.nobr.center",
-			"seeds": ".green.center",
-			"peers": ".red.center"
+			"name":"a.detLink",
+			"path":["a.detLink","@href"],
+			"magnet": ["a[title=Download\\ this\\ torrent\\ using\\ magnet]","@href"],
+			"size": "/Size (\\d+(\\.\\d+).[KMG]iB)/",
+			"seeds": "td:nth-child(3)",
+			"peers": "td:nth-child(4)"
 		}
 	},
 	"tpb": {
